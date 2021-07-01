@@ -44,10 +44,9 @@ for playlistId in tqdm(playlistIds, 'Checking playlists', unit='playlists'):
             with open(UNLISTED_IDS_BEFORE_2017_FILE, 'a+') as f:
                 f.write('\n'.join(unlistedVideos) + '\n')
 
-        try:
-            pageToken = data['nextPageToken']
-        except KeyError:
-            pageToken = ''
+        pageToken = data.get('nextPageToken', '')
+
+        if pageToken == '':
             break
 
 print(f'Unlisted video ids written to {UNLISTED_IDS_BEFORE_2017_FILE}')
